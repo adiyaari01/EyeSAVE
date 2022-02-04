@@ -1,7 +1,6 @@
 const kindergartensModels = require("./kindergartens.models");
 
 module.exports = {
-    User: require("./users.models"),
     Childe: require("./children.models"),
     Escort: require("./escorts.models"),
     Staff: require("./staff.models"),

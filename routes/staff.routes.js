@@ -1,11 +1,17 @@
 const express = require("express");
 const router = express.Router();
+const {handleValidationRequest} = require('../middlewares/util.middleware');
+const {staffCreateValidation} = require('../middlewares/staff.middlewares');
+
 const {getStaff,getStaffMemberById,createStaffMember,updateStaffMember,deleteStaffMember} = require("../controllers/staff.controllers");
 
-router.route("/").get(getStaff);
-router.route("/:id").get(getStaffMemberById);
-router.route('/').post(createStaffMember);
-router.route('/:id').put(updateStaffMember); 
-router.route('/:id').delete(deleteStaffMember);
+router.route("/")
+    .get(getStaff)
+    .post(staffCreateValidation, handleValidationRequest, createStaffMember);
+    
+router.route("/:id")
+    .get(getStaffMemberById)
+    .put(updateStaffMember)
+    .delete(deleteStaffMember);
 
 module.exports = router;

@@ -7,7 +7,7 @@ const ChildSchema = new Schema({
     _address : String,
     _escort : Array,
     _imageUrl : String,
-    _birthdate : Date,
+    _birthdate : String,
 }, {versionKey:false}); 
 
 module.exports = model("Child", ChildSchema);

@@ -24,7 +24,7 @@ exports.getChildById = async (req,res,next)=>{
 };
 
 exports.createChild = async (req,res,next)=>{
-    await Child.create(req.body);
+    await Children.create(req.body);
     return res.status(200).json('created!');
 }
 

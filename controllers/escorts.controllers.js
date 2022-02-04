@@ -26,7 +26,7 @@ exports.getEscortById = async (req,res,next)=>{
 };
 
 exports.createEscort = async (req,res,next)=>{
-    await Escort.create(req.body);
+    await Escorts.create(req.body);
     return res.status(200).json('created!');
 }
 
