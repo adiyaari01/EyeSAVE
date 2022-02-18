@@ -1,3 +1,4 @@
+const catchAsync = require("../utils/catch.util")
 const res = require("express/lib/response");
 const {model} = require("mongoose");
 const Children = model("Child");
@@ -13,33 +14,27 @@ const Children = model("Child");
 //     _birthdate:'2019-10-19'
 //     });
 
-exports.getChildren = async (req,res,next)=>{
+exports.getChildren = catchAsync(async (req,res,next)=>{
     const children = await Children.find().lean();
     return res.status(200).json(children)
-}
+});
 
-exports.getChildById = async (req,res,next)=>{
+exports.getChildById = catchAsync(async (req,res,next)=>{
         const child = await Children.findById(req.params.id).lean();
         return res.status(200).json(child)
-};
+});
 
-exports.createChild = async (req,res,next)=>{
+exports.createChild = catchAsync(async (req,res,next)=>{
     await Children.create(req.body);
     return res.status(200).json('created!');
-}
+});
 
-exports.updateChild = async(req,res,next)=>{
-    if (!req.params.id){
-        return res.status(422).json({status:'failed',message:'Id is require'});
-    }
+exports.updateChild = catchAsync(async(req,res,next)=>{
     await Children.updateOne({_id:req.params.id},{$set:req.body});
     return res.status(200).json({status:'success'});
-    }
+});
 
-exports.deleteChild = async (req,res,next)=>{
-    const child = await Child.deleteOne({_id:req.params.id}).lean();
-    return res.status(200).json('deleted')
-}
-
-
-
+exports.deleteChild = catchAsync(async (req,res,next)=>{
+    await Children.deleteOne({_id: req.params.id});
+    return res.status(200).json({message:'deleted'});
+});

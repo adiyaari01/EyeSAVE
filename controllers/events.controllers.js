@@ -1,3 +1,5 @@
+
+const catchAsync = require("../utils/catch.util")
 const res = require("express/lib/response");
 const {model} = require("mongoose");
 const Events = model("Event");
@@ -36,33 +38,30 @@ const Events = model("Event");
     //     _birthdate:'1995-03-03'
     //     });
         
-exports.getEvents = async (req,res,next)=>{
+exports.getEvents = catchAsync(async (req,res,next)=>{
     const staff = await Events.find().lean();
     return res.status(200).json(staff)
-}
+});
 
-exports.getEventById = async (req,res,next)=>{
+exports.getEventById = catchAsync(async (req,res,next)=>{
         const kindergarten = await Events.findById(req.params.id).lean();
         return res.status(200).json(kindergarten)
-};
+});
 
-exports.createEvent = async (req,res,next)=>{
+exports.createEvent = catchAsync(async (req,res,next)=>{
     await Events.create(req.body);
     return res.status(200).json('created!');
-}
+});
 
-exports.updateEvent = async(req,res,next)=>{
-    if (!req.params.id){
-        return res.status(422).json({status:'failed',message:'Id is require'});
-    }
+exports.updateEvent = catchAsync(async(req,res,next)=>{
     await Events.updateOne({_id:req.params.id},{$set:req.body});
     return res.status(200).json({status:'success'});
-    }
+});
 
-exports.deleteEvent = async (req,res,next)=>{
+exports.deleteEvent = catchAsync(async (req,res,next)=>{
     const kindergarten = await Events.deleteOne({_id:req.params.id}).lean();
-    return res.status(200).json('deleted')
-}
+    return res.status(200).json({message:'deleted'})
+});
 
 
 

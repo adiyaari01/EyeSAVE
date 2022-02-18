@@ -9,7 +9,7 @@ router.route("/")
     .get(getReports)
     .post(staffAttendanceCreateValidation, handleValidationRequest, createReport);
 
-    router.route("/:id")
+router.route("/:id")
     .get(getReportById)
     .put(updateReport)
     .delete(deleteReport);

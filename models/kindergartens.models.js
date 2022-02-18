@@ -5,7 +5,6 @@ const KindergartenSchema = new Schema({
     _address : String,
     _children : Array,
     _staff : Array,
-    _parents : Array,
     _phone : Number,
 }, {versionKey:false}); 
 

@@ -1,3 +1,4 @@
+const catchAsync = require("../utils/catch.util")
 const res = require("express/lib/response");
 const {model} = require("mongoose");
 const Escorts = model("Escort");
@@ -15,33 +16,30 @@ const Escorts = model("Escort");
 //     _birthdate:'1990-10-19'
 //     });
 
-exports.getEscorts = async (req,res,next)=>{
+exports.getEscorts = catchAsync(async (req,res,next)=>{
     const escorts = await Escorts.find().lean();
     return res.status(200).json(escorts)
-}
+});
 
-exports.getEscortById = async (req,res,next)=>{
+exports.getEscortById = catchAsync(async (req,res,next)=>{
         const escort = await Escorts.findById(req.params.id).lean();
         return res.status(200).json(escort)
-};
+});
 
-exports.createEscort = async (req,res,next)=>{
+exports.createEscort = catchAsync(async (req,res,next)=>{
     await Escorts.create(req.body);
     return res.status(200).json('created!');
-}
+});
 
-exports.updateEscort = async(req,res,next)=>{
-    if (!req.params.id){
-        return res.status(422).json({status:'failed',message:'Id is require'});
-    }
+exports.updateEscort = catchAsync(async(req,res,next)=>{
     await Escorts.updateOne({_id:req.params.id},{$set:req.body});
     return res.status(200).json({status:'success'});
-    }
+});
 
-exports.deleteEscort = async (req,res,next)=>{
-    const escort = await Escort.deleteOne({_id:req.params.id}).lean();
-    return res.status(200).json('deleted')
-}
+exports.deleteEscort = catchAsync(async (req,res,next)=>{
+    await Escorts.deleteOne({_id:req.params.id});
+    return res.status(200).json({messgae:'deleted'})
+});
 
 
 

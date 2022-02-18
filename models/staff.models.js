@@ -6,7 +6,7 @@ const StaffMemberSchema = new Schema({
     _lastName : String,
     _address : String,
     _imageUrl : String,
-    _birthdate : Date,
+_birthdate : { type: Date, required: true, validate: () => { /* todo if staff is old more the 27 years old */}},
     _phone : Number,
     _position : String
 }, {versionKey:false, collection:"staff"}); 
