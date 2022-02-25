@@ -3,13 +3,6 @@ res = require("express/lib/response");
 const {model} = require("mongoose");
 const Reports = model("StaffAttendanceReport");
 
-// Reports.create(
-//     {
-//         _employeeId : "333456789",
-//         _arrival : "2022-01-29",
-//         _departure : "2022-01-29"
-//     });
-        
 exports.getReports = catchAsync(async (req,res,next)=>{
     const reports = await Reports.find().lean();
     return res.status(200).json(reports)

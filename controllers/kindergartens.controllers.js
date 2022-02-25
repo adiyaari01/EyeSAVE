@@ -1,19 +1,8 @@
 const catchAsync = require("../utils/catch.util")
 const req = require("express/lib/request");
-const res = require("express/lib/response");
 const {model} = require("mongoose");
 const Kindergartens = model("Kindergarten");
 
-// Kindergartens.create(
-//     {
-//     _name:"Kalanit", 
-//     _address:"Hahaha 17 haifa",
-//     _phone:"0989483567",
-//     _children:[124578965,124578966,1233578966,1233278966,1233278969],
-//     stff:[1275058966,1234558966,1233876456],
-//         parents:[100058966,100958966,100958000]
-//     });
-        
 exports.getKindergartens = catchAsync(async (req,res,next)=>{
     const kindergartens = await Kindergartens.find().lean();
     return res.status(200).json({kindergartens})

@@ -1,18 +1,6 @@
 const catchAsync = require("../utils/catch.util")
-const res = require("express/lib/response");
 const {model} = require("mongoose");
 const Children = model("Child");
-
-// Child.create(
-//     {
-//     _id:124558966,
-//      _firstName:"Zlil", 
-//      _lastName:"Tlil", 
-//      _address:"habroshim 7 haifa",
-//     _escort:[3,4,5],
-//     _imageUrl:"www.aaa1.com",
-//     _birthdate:'2019-10-19'
-//     });
 
 exports.getChildren = catchAsync(async (req,res,next)=>{
     const children = await Children.find().lean();
@@ -35,6 +23,12 @@ exports.updateChild = catchAsync(async(req,res,next)=>{
 });
 
 exports.deleteChild = catchAsync(async (req,res,next)=>{
+    await Children.deleteOne({_id: req.params.id});
+    return res.status(200).json({message:'deleted'});
+});
+
+exports.getChildByParentId = catchAsync(async (req,res,next)=>{
+    // children.escorts.includes(req.params.parentId)
     await Children.deleteOne({_id: req.params.id});
     return res.status(200).json({message:'deleted'});
 });

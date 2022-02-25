@@ -5,6 +5,6 @@ exports.childrenAttendanceCreateValidation = [
     body('_absence',"Is not valid").isString().isLength({ min : 0, max : 10 }),
     body('_delay',"Is not valid").isBoolean(),
     body('_date',"Date is not valid (yyyy/mm/dd)").isDate(),
-    body('_arrivalTime',"Date is not valid (hh:mm:ss)").isLength({ min : 0, max : 8 }),
-    body('_departureTime',"Date is not valid (hh:mm:ss)").isLength({ min : 0, max : 8 }),
+    body('_arrivalTime',"Time is not valid (hh:mm:ss)").isLength({ min : 0, max : 8 }),
+    body('_departureTime',"Time is not valid (hh:mm:ss)").isLength({ min : 0, max : 8 }),
 ];

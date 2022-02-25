@@ -6,6 +6,6 @@ exports.escortsCreateValidation = [
     body('_lastName',"Is not valid").isString().isLength({ min : 2, max : 10 }),
     body('_address').isString().isLength({ min : 5, max : 35 }),
     body('_birthdate',"Date is not valid (yyyy/mm/dd)").isDate(),
-    body('_phone').isNumeric().isLength({ min : 9, max : 10 }),
+    body('_phone').isString().isLength({ min : 13, max : 13 }),
     body('_relation',"Is not valid").isString().isLength({ min : 2, max : 10 }),
 ];

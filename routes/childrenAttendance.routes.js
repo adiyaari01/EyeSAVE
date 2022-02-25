@@ -9,9 +9,12 @@ router.route("/")
     .get(getReports)
     .post(childrenAttendanceCreateValidation, handleValidationRequest, createReport);
 
-router.route("/:id")
+router.route("/:_id")
     .get(getReportById)
     .put(updateReport)
     .delete(deleteReport);
+
+router.route("/:_date/children/:_childId")
+    .put(updateReport)
 
 module.exports = router;

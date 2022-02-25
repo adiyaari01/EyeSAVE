@@ -22,6 +22,11 @@ const handleValidationErrorDB = err => {
     return new AppError(message, 400);
 };
 
+const handleCastErrorDB = err => {
+    const message = `Mongoose failed to cast a value`;
+    return new AppError(message, 400);
+};
+
 module.exports = (err,req,res,next) =>{
     console.log(err.message)
 
@@ -39,6 +44,9 @@ module.exports = (err,req,res,next) =>{
     
     if (err.name === 'ValidationError')
     err = handleValidationErrorDB(err);
+
+    if (err.name === 'CastError')
+    err = handleCastErrorDB(err);
 
     return res.status(err.statusCode).json(err);
 }

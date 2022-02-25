@@ -2,6 +2,7 @@ const {Schema, model} = require("mongoose");
 
 const EscortSchema = new Schema({
     _id : Number,
+    _telegramID : String,
     _firstName : String,
     _lastName : String,
     _address : String,

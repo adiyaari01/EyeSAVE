@@ -1,8 +1,6 @@
 const express = require("express");
-const { append } = require("express/lib/response");
 const mongoose = require("mongoose");
 const AppError = require("./utils/appError");
-// const AppError = require("./utils/appError");
 
 const app = express();
 const port = 8000;
@@ -21,7 +19,6 @@ app.use("/events",require("./routes/events.routes"));
 app.use("/staffAttendance",require("./routes/staffAttendance.routes"));
 app.use("/childrenAttendance",require("./routes/childrenAttendance.routes"));
 
-// app.all("*",(req,res,next)=>next(AppError({message:"request is not found", code:404})));
 app.all("*",(req,res,next)=>next(new AppError("request is not found", 404)));
 // middleware erros manager
 app.use(require("./controllers/error.controller"));
