@@ -2,7 +2,7 @@ import cv2
 import face_recognition
 
 
-# creates a list of processed of saved images
+# creates a processed list of saved images
 def findEncodings(images):
     encodeList = []
     for img in images:
