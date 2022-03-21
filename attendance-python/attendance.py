@@ -1,74 +1,69 @@
 from datetime import datetime
-import json
-import os
+import dbConnection
+
+db = dbConnection.get_connection()
+# תשני לשם של הקולקשן
+children_collection = db["childAttendance"]
+staff_collection = db["staffAttendance"]
 
 
-def markAttendance(name, role):
+def markAttendance(id, role):
     now = datetime.now()
-    dString = now.strftime("%d.%m.%Y")
+    # תשני לפי הפורמט שאת צריכה
+    dString = now.strftime("%d-%m-%Y")
     tString = now.strftime("%H:%M:%S")
-    departureTime = now.replace(hour=7, minute=0, second=0, microsecond=0)
+    departureTime = now.replace(hour=15, minute=0, second=0, microsecond=0)
     # the jsons are saved in different repositories
     if role == "child":
-        path = 'ChildAttendance/'
+        path = children_collection
+        query = "_childId"
     else:
-        path = 'StaffAttendance/'
-        # if the json exists it means the child/staff member already arrived
-    if os.path.exists(path + name + dString + '.json'):
-        f = open(path + name + dString + '.json', "r")
-        myDataList = json.load(f)
-        if myDataList["date"] != dString:
-            createData(name, role, path)
-        elif departureTime < now:
-            myDataList["departure"] = tString
-            with open(path + name + dString + '.json', 'w') as f:
-                json.dump(myDataList, f, indent=4)
-                f.close()
-    else:
-        createData(name, role, path)
+        path = staff_collection
+        query = "_employeeId"
+    DBelements = path.find()
+    found = False
+    for element in DBelements:
+        # print(query)
+        if element[query] == id:
+            found = True
+            if element["_date"] == dString:
+                if departureTime < now:
+                    path.update_one(
+                        {query: element[query]},
+                        {
+                            "$set": {
+                                "_departureTime": tString
+                            },
+                            "$currentDate": {"lastModified": True}
+
+                        }
+                    )
+            else:
+                createData(id, role, path)
+    if found == False:
+        createData(id, role, path)
 
 
-    # else:
-    #     if role == "child":
-    #         attendance = {
-    #             "name": name,
-    #             "date": dString,
-    #             "arrival": tString,
-    #             "departure": "",
-    #             "sick": "",
-    #             "late": ""
-    #         }
-    #     if role == "staff":
-    #         attendance = {
-    #             "name": name,
-    #             "date": dString,
-    #             "arrival": tString,
-    #             "departure": ""
-    #         }
-    #     # create new json and save the data
-    #     with open(path + name + '.json', 'w') as f:
-    #         json.dump(attendance, f, indent=4)
-def createData(name, role, path):
+def createData(id, role, path):
     now = datetime.now()
-    dString = now.strftime("%d.%m.%Y")
+    dString = now.strftime("%d-%m-%Y")
     tString = now.strftime("%H:%M:%S")
     if role == "child":
-        attendance = {
-            "name": name,
-            "date": dString,
-            "arrival": tString,
-            "departure": "",
-            "sick": "",
-            "late": ""
-        }
+        path.insert_one(
+            {"_childId": id,
+             "_date": dString,
+             "_arrivalTime": tString,
+             "_departureTime": "",
+             "_absence": False,
+             "_childDelay": "",
+             "_escortDelay": ""}
+        )
     if role == "staff":
-        attendance = {
-            "name": name,
-            "date": dString,
-            "arrival": tString,
-            "departure": ""
-        }
-    # create new json and save the data
-    with open(path + name + dString + '.json', 'w') as f:
-        json.dump(attendance, f, indent=4)
-        f.close()
+        path.insert_one(
+            {
+                "_employeeId": id,
+                "_date": dString,
+                "_arrivalTime": tString,
+                "_departureTime": "",
+            }
+        )

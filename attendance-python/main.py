@@ -7,36 +7,43 @@ import os
 from datetime import datetime
 from findEncodings import findEncodings
 from attendance import markAttendance
+import pymongo
+import dbConnection
 
 # paths
 pathStaff = 'staffImgs'
 pathChild = 'childImgs'
+db = dbConnection.get_connection()
+# תשני לשמות של הקולקשן
+children_collection = db["children"]
+staff_collection = db["staff"]
+
 # arrays of images, names and roles(child or staff member)
 images = []
-classNames = []
+id_list = []
 role = []
 childrenList = os.listdir(pathChild)
 staffList = os.listdir(pathStaff)
-print(childrenList)
+# print(childrenList)
 for cl in childrenList:
     # read image from repository
     Img = cv2.imread(f'{pathChild}/{cl}')
     # add image to the array
     images.append(Img)
     # add the name to the array without .jpg
-    classNames.append(os.path.splitext(cl)[0])
+    id_list.append(os.path.splitext(cl)[0])
     role.append("child")
-print(classNames)
+# print(id_list)
 for cl in staffList:
     Img = cv2.imread(f'{pathStaff}/{cl}')
     images.append(Img)
-    classNames.append(os.path.splitext(cl)[0])
+    id_list.append(os.path.splitext(cl)[0])
     role.append("staff")
-print(classNames)
+# print(id_list)
 
 # encode the images
 encodeListKnown = findEncodings(images)
-print('Encoding Complete')
+# print('Encoding Complete')
 
 cap = cv2.VideoCapture(0)
 
@@ -57,18 +64,18 @@ while True:
 
         # if the faces match change the name to upper letters and draw the rectangle around the face
         if matches[matchIndex]:
-            name = classNames[matchIndex].upper()
-            print(name)
+            id = id_list[matchIndex].upper()
+            # print(id)
             y1, x2, y2, x1 = faceLoc
             y1, x2, y2, x1 = y1 * 4, x2 * 4, y2 * 4, x1 * 4
             cv2.rectangle(img, (x1, y1), (x2, y2), (0, 255, 0), 2)
             cv2.rectangle(img, (x1, y2 - 35), (x2, y2), (0, 255, 0), cv2.FILLED)
-            cv2.putText(img, name, (x1 + 6, y2 - 6), cv2.FONT_HERSHEY_COMPLEX, 1, (255, 255, 255), 2)
+            cv2.putText(img, id, (x1 + 6, y2 - 6), cv2.FONT_HERSHEY_COMPLEX, 1, (255, 255, 255), 2)
             # mark attendance
             if role[matchIndex] == "child":
-                markAttendance(name, "child")
+                markAttendance(id, "child")
             else:
-                markAttendance(name, "staff")
+                markAttendance(id, "staff")
 
     cv2.imshow('Webcam', img)
     cv2.waitKey(1)
