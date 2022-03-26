@@ -6,10 +6,10 @@ const EscortSchema = new Schema({
     _firstName : String,
     _lastName : String,
     _address : String,
-    _children : Array,
+    _children : [{type: Number, ref: "Child"}],
     _imageUrl : String,
-    _birthdate : Date,
-    _phone : Number,
+    _birthdate : String,
+    _phone : String,
     _relation : String
 }, {versionKey:false}); 
 

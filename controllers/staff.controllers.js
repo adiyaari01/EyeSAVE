@@ -1,7 +1,7 @@
 const catchAsync = require("../utils/catch.util")
 const {model} = require("mongoose");
 const { StandardValidation } = require("express-validator/src/context-items");
-const Staff = model("StaffMember");
+const Staff = model("Staff");
 
 exports.getStaff = catchAsync(async (req,res,next)=>{
     const staff = await Staff.find().lean();

@@ -28,7 +28,6 @@ exports.deleteChild = catchAsync(async (req,res,next)=>{
 });
 
 exports.getChildByParentId = catchAsync(async (req,res,next)=>{
-    // children.escorts.includes(req.params.parentId)
-    await Children.deleteOne({_id: req.params.id});
-    return res.status(200).json({message:'deleted'});
+    const child = await Children.findOne({ escorts: { $in: [req.params.id]} }).lean();
+    return res.status(200).json({child});
 });

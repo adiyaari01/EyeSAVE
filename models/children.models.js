@@ -5,7 +5,7 @@ const ChildSchema = new Schema({
     _firstName : String,
     _lastName : String,
     _address : String,
-    _escort : Array,
+    _escort : [{type: Number, ref: "Escort"}],
     _imageUrl : String,
     _birthdate : String,
 }, {versionKey:false}); 

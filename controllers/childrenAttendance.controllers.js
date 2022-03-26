@@ -3,7 +3,12 @@ const {model} = require("mongoose");
 const Reports = model("childAttendanceReport");
         
 exports.getReports = catchAsync(async (req,res,next)=>{
-    const reports = await Reports.find().lean();
+    const date = req.query._date;
+    const filter = {};
+    if(date){
+        filter._date = date;
+    }
+    const reports = await Reports.find(filter).lean();
     return res.status(200).json(reports)
 });
 

@@ -7,9 +7,9 @@ const StaffMemberSchema = new Schema({
     _lastName : String,
     _address : String,
     _imageUrl : String,
-_birthdate : { type: Date, required: true, validate: () => { /* todo if staff is old more the 27 years old */}},
-    _phone : Number,
+    _birthdate : String,
+    _phone : String,
     _position : String
 }, {versionKey:false, collection:"staff"}); 
 
-module.exports = model("StaffMember", StaffMemberSchema);
+module.exports = model("Staff", StaffMemberSchema);
