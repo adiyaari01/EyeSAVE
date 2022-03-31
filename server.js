@@ -5,7 +5,7 @@ const cors = require('cors');
 const { exec } = require("child_process")
 
 const app = express();
-const port = 8000;
+const port = process.env.PORT || 8000 
 
 // mongoose.connect("mongodb://localhost:27017/EyeSAVE_DB");
 require("./models");
@@ -26,13 +26,13 @@ app.all("*",(req,res,next)=>next(new AppError("request is not found", 404)));
 // middleware erros manager
 app.use(require("./controllers/error.controller"));
 
-// exec("python ./EyeSAVE_attendance_python/main.py", (err, stdout, stderr) => {
-//     if (err) {
-//         console.error(`exec error: ${err}`);
-//         return;
-//     }
-//     console.log(`${stdout}`);
-// });
+exec("python ./EyeSAVE_attendance_python/main.py", (err, stdout, stderr) => {
+    if (err) {
+        console.error(`exec error: ${err}`);
+        return;
+    }
+    console.log(`${stdout}`);
+});
 
 app.listen(port, ()=>console.log(`Server is running on port ${port}`));
 
