@@ -7,16 +7,26 @@ const path = require("path");
 
 const app = express();
 const port = process.env.PORT || 8000 
+const corsOptions = {
+    origin: [
+      "http://127.0.0.1:8080",
+      "http://localhost:8080",
+      "http://127.0.0.1:3000",
+      "http://localhost:3000",
+    ],
+    credentials: true,
+  };
 
+  
 // mongoose.connect("mongodb://localhost:27017/EyeSAVE_DB");
 require("./models");
 
 app.use(express.json());
-app.use(cors());
+app.use(cors(corsOptions));
 
 if (process.env.NODE_ENV === "production") {
     app.use(express.static(path.resolve(__dirname, "public")));
-    app.use(cors());
+    app.use(cors(corsOptions));
 }
 
 // Routes
