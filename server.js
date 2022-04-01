@@ -16,6 +16,7 @@ app.use(cors());
 
 if (process.env.NODE_ENV === "production") {
     app.use(express.static(path.resolve(__dirname, "public")));
+    app.use(cors());
 }
 
 // Routes
