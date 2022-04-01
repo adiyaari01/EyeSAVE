@@ -13,6 +13,10 @@ require("./models");
 app.use(express.json());
 app.use(cors());
 
+if (process.env.NODE_ENV === "production") {
+    app.use(express.static(path.resolve(__dirname, "public")));
+}
+
 // Routes
 app.use("/children",require("./routes/children.routes"));
 app.use("/escorts",require("./routes/escorts.routes"));
@@ -34,6 +38,11 @@ app.use(require("./controllers/error.controller"));
 //     console.log(`${stdout}`);
 // });
 
+app.get("/**", (req, res) => {
+    res.sendFile(path.join(__dirname, "public", "index.html"));
+  });
+
+  
 app.listen(port, ()=>console.log(`Server is running on port ${port}`));
 
 // Todo: autontication, login, register, secure problems
