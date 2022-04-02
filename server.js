@@ -43,12 +43,20 @@ app.all("*",(req,res,next)=>next(new AppError("request is not found", 404)));
 // middleware erros manager
 app.use(require("./controllers/error.controller"));
 
-exec("python ./EyeSAVE_attendance_python/main.py", (err, stdout, stderr) => {
-    if (err) {
-        console.error(`exec error: ${err}`);
-        return;
-    }
-    console.log(`${stdout}`);
+
+// exec("python ./EyeSAVE_attendance_python/main.py", (err, stdout, stderr) => {
+//     if (err) {
+//         console.error(`exec error: ${err}`);
+//         return;
+//     }
+//     console.log(`${stdout}`);
+// });
+exec("python ./main.py", (err, stdout, stderr) => {
+  if (err) {
+      console.error(`exec error: ${err}`);
+      return;
+  }
+  console.log(`${stdout}`);
 });
 
 app.get("/**", (req, res) => {
