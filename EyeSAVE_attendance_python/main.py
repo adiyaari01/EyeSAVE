@@ -1,4 +1,3 @@
-from dis import code_info
 import json
 
 import cv2
@@ -14,6 +13,7 @@ import dbConnection
 # paths
 pathStaff = '../EyeSAVE_attendance_python/staffImgs'
 pathChild = '../EyeSAVE_attendance_python/childImgs'
+
 db = dbConnection.get_connection()
 children_collection = db["children"]
 staff_collection = db["staff"]
@@ -45,8 +45,8 @@ for cl in staffList:
 encodeListKnown = findEncodings(images)
 # print('Encoding Complete')
 
-cap = cv2.VideoCapture(0)
-# cap = cv2.VideoCapture("rtsp://tapocamnum1:Ss321352387@176.229.235.86:554/stream1")
+# cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture("rtsp://tapocamnum1:Ss321352387@176.229.235.86:554/stream1")
 
 while True:
     success, img = cap.read()
