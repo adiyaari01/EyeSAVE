@@ -5,7 +5,7 @@ const childAttandanceReportSchema = new Schema({
     _date : String,
     _arrivalTime : String,
     _departureTime : String,
-    _absence:String,
+    _absence:Boolean,
     _childDelay:Boolean,
     _escortDelay:Boolean
 }, {versionKey:false, collection:"children_attendance"}); 
