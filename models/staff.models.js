@@ -10,7 +10,8 @@ const StaffMemberSchema = new Schema({
     _birthdate : String,
     _phone : String,
     _position : String,
-    _password : String
+    _password : String,
+    _email : String
 }, {versionKey:false, collection:"staff"}); 
 
 module.exports = model("Staff", StaffMemberSchema);
