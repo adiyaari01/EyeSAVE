@@ -9,7 +9,8 @@ const StaffMemberSchema = new Schema({
     _imageUrl : String,
     _birthdate : String,
     _phone : String,
-    _position : String
+    _position : String,
+    _password : String
 }, {versionKey:false, collection:"staff"}); 
 
 module.exports = model("Staff", StaffMemberSchema);
