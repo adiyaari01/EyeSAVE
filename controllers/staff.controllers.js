@@ -33,5 +33,10 @@ exports.getStaffByEmail = catchAsync(async (email) => {
     return staff
 });
 
+exports.updateEmployee = catchAsync(async (employee) => {
+    const staff = await Staff.updateOne({ _id: employee._id }, { $set: employee }).lean();
+    return staff;
+});
+
 
 
