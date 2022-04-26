@@ -29,7 +29,7 @@ exports.deleteStaffMember = catchAsync(async (req, res, next) => {
 });
 
 exports.getStaffByEmail = catchAsync(async (email) => {
-    const staff = await Staff.find({ _email: email }).lean();
+    const staff = await Staff.findOne({ _email: email }).lean();
     return staff
 });
 

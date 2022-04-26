@@ -7,5 +7,6 @@ module.exports = {
     Kindergartens: require("./kindergartens.models"),
     Events: require("./events.models"),
     StaffAttendance: require("./staffAttendance.models"),
-    ChildrenAttendance: require("./childrenAttendance.models")
+    ChildrenAttendance: require("./childrenAttendance.models"),
+    Settings: require("./settings.models")
 }

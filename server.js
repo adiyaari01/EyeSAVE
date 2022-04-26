@@ -8,10 +8,11 @@ const app = express();
 const port = process.env.PORT || 8000 
 const corsOptions = {
     origin: [
-      "http://127.0.0.1:8000",
-      "http://localhost:8000",
+      "http://127.0.0.1:8001",
+      "http://localhost:8001",
       "http://127.0.0.1:3000",
       "http://localhost:3000",
+      "https://eyesave-noitfications.herokuapp.com/",
       "https://eyesave.herokuapp.com" ,
     ],
     credentials: true,
@@ -37,7 +38,8 @@ app.use("/kindergartens",require("./routes/kindergartens.routes"));
 app.use("/events",require("./routes/events.routes"));
 app.use("/staffAttendance",require("./routes/staffAttendance.routes"));
 app.use("/childrenAttendance",require("./routes/childrenAttendance.routes"));
-app.use("/auth",require("./routes/auth.routes"));
+app.use("/auth", require("./routes/auth.routes"));
+app.use("/settings", require("./routes/settings.routes"));
 
 app.all("*",(req,res,next)=>next(new AppError("request is not found", 404)));
 // middleware erros manager

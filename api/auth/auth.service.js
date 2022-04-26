@@ -12,11 +12,12 @@ async function login(email, password) {
     return Promise.reject("email and password are required!");
 
   const user = await getStaffByEmail(email);
-  console.log("service: ",user);
-  console.log("Password: ",password);
+  // console.log("service: ",user);
+  // console.log("Password: ",password);
   if (!user) return Promise.reject("Invalid email or password");
   try {
-    const match = await bcrypt.compare(password, user._password);
+    await bcrypt.compare(password, user._password);
+    return user;
   } catch (error) {
     console.log(error);
   }
