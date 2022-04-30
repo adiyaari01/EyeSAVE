@@ -16,14 +16,12 @@ async function login(email, password) {
   // console.log("Password: ",password);
   if (!user) return Promise.reject("Invalid email or password");
   try {
-    await bcrypt.compare(password, user._password);
+    match = await bcrypt.compare(password, user._password);
+    if (!match) return Promise.reject("Invalid email or password");
     return user;
   } catch (error) {
     console.log(error);
   }
-
-  // if (!match) return Promise.reject("Invalid email or password");
-  return user;
 }
 
 async function signup(employee) {
