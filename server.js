@@ -25,10 +25,11 @@ require("./models");
 app.use(express.json());
 app.use(cors(corsOptions));
 
-if (process.env.NODE_ENV === "production") {
-    app.use(express.static(path.resolve(__dirname, "public")));
-    app.use(cors(corsOptions));
-}
+// TODO: delete 28-32
+// if (process.env.NODE_ENV === "production") {
+//     app.use(express.static(path.resolve(__dirname, "public")));
+//     app.use(cors(corsOptions));
+// }
 
 // Routes
 app.use("/children",require("./routes/children.routes"));
