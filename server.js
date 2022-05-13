@@ -33,6 +33,7 @@ app.use(cors(corsOptions));
 // }
 
 // Routes
+app.use("/recordings",require("./routes/recordings.routes"));
 app.use("/children",require("./routes/children.routes"));
 app.use("/escorts",require("./routes/escorts.routes"));
 app.use("/staff",require("./routes/staff.routes"));
