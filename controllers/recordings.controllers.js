@@ -7,7 +7,6 @@ var s3 = new AWS.S3();
 // var params = {Bucket: 'eyesave' Key: }
 
 exports.getRecordings = catchAsync(async (req, res, next) => {
-    // const recordings = await Children.find().lean();
 
     const s3 = new AWS.S3({
         accessKeyId: AMAZON_ACCESS_KEY_ID,
@@ -27,7 +26,8 @@ exports.getRecordings = catchAsync(async (req, res, next) => {
                 console.log("Error", err);
             } else {
                 console.log("Success", data);
-                return res.status(200).json({data:data})
+                const filtered = data.Contents.filter(data => data.Key.includes('.mp4'));
+                return res.status(200).json({data:filtered})
             }
         });
     }
