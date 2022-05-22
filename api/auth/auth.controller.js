@@ -9,12 +9,12 @@ module.exports = {
 async function login(req, res) {
     // console.log('req',req.body);
     const { email, password } = req.body
-    console.log('user details', email, password)
+    // console.log('user details', email, password)
     try {
         const user = await authService.login(email, password)
         // req.session.user = user;
         // res.json(user)
-        console.log("controller: ", user);
+        // console.log("controller: ", user);
         return res.status(200).json(user);
     } catch (err) {
          return res.status(401).json({ error: err })
