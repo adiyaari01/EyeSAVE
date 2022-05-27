@@ -8,5 +8,6 @@ module.exports = {
     Events: require("./events.models"),
     StaffAttendance: require("./staffAttendance.models"),
     ChildrenAttendance: require("./childrenAttendance.models"),
-    Settings: require("./settings.models")
+    Settings: require("./settings.models"),
+    Forms: require("./forms.models"),
 }
