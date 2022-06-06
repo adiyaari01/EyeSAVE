@@ -4,10 +4,10 @@ const catchAsync = require("../utils/catch.util")
 const { AMAZON_ACCESS_KEY_ID, AMAZON_SECRET_ACCESS_KEY} = consts;
 
 var s3 = new AWS.S3();
-// var params = {Bucket: 'eyesave' Key: }
 
 exports.getRecordings = catchAsync(async (req, res, next) => {
 
+// connent to aws s3 bucket to get access to recrodings 
     const s3 = new AWS.S3({
         accessKeyId: AMAZON_ACCESS_KEY_ID,
         secretAccessKey: AMAZON_SECRET_ACCESS_KEY,
@@ -26,8 +26,8 @@ exports.getRecordings = catchAsync(async (req, res, next) => {
                 console.log("Error", err);
             } else {
                 console.log("Success", data);
-                const filtered = data.Contents.filter(data => data.Key.includes('.mp4'));
-                return res.status(200).json({data:filtered})
+                const videosList = data.Contents.filter(data => data.Key.includes('.mp4'));
+                return res.status(200).json({data:videosList})
             }
         });
     }

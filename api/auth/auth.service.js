@@ -8,12 +8,13 @@ module.exports = {
 };
 
 async function login(email, password) {
+  // check that user had filled email and password fields
   if (!email || !password)
     return Promise.reject("email and password are required!");
 
   const user = await getStaffByEmail(email);
-  // console.log("service: ",user);
-  // console.log("Password: ",password);
+  // check if email is exist in system.
+  // if exist compare passwords else block login
   if (!user) return Promise.reject("Invalid email or password");
   try {
     match = await bcrypt.compare(password, user._password);
@@ -25,6 +26,7 @@ async function login(email, password) {
 }
 
 async function signup(employee) {
+  // encrypt password
   const saltRounds = 10;
   const hash = await bcrypt.hash(employee._password, saltRounds);
   employee._password = hash;

@@ -18,6 +18,7 @@ exports.getForms = catchAsync(async (req,res,next)=>{
 
 exports.getFormById = catchAsync(async (req,res,next)=>{
         const newDate = new Date();
+        // limited form. if expired field is greater then newDate return 404 else return 200
         const query = {_id:req.params.id,_expired:{$gte:newDate}}
         const form = await Forms.findOne(query).lean();
         if (form === null){

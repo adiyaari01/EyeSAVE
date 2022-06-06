@@ -13,6 +13,7 @@ router.route("/:id")
     .put(updateChild)
     .delete(deleteChild);
 
+// get child by his parentId
 router.route("/escorts/:parentId").get(getChildByParentId);
 
 module.exports = router;

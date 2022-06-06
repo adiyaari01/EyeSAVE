@@ -14,6 +14,7 @@ router.route("/:_id")
     .put(updateReport)
     .delete(deleteReport);
 
+// route of report of specific child from specific date
 router.route("/:_date/children/:_childId")
     .put(updateReport)
 

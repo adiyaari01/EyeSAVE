@@ -24,7 +24,7 @@ async function login(req, res) {
 async function register(req, res) {
     try {
         const account = await authService.signup(req.body)
-        console.log("new User");
+        // console.log("new User");
         return res.status(200).end();
     } catch (error) {
         console.log("Error", error);
