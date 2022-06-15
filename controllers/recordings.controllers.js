@@ -25,7 +25,7 @@ exports.getRecordings = catchAsync(async (req, res, next) => {
             if (err) {
                 console.log("Error", err);
             } else {
-                console.log("Success", data);
+                // console.log("Success", data);
                 const videosList = data.Contents.filter(data => data.Key.includes('.mp4'));
                 return res.status(200).json({data:videosList})
             }

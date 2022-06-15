@@ -1,5 +1,7 @@
 const AppError = require('../utils/appError');
 
+// handle errors and return the right msg
+
 const handleDuplicateFieldsDB = err => {
     const message = `Duplicate field value. Please use another value!`;
     return new AppError(message, 409);
