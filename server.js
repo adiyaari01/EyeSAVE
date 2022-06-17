@@ -11,7 +11,7 @@ const corsOptions = {
       "http://localhost:8001",
       "http://127.0.0.1:3000",
       "http://localhost:3000",
-      "https://eye-save-noitfications.herokuapp.com",
+      "https://eye-save-notifications.herokuapp.com",
       "https://eyesave.herokuapp.com" ,
       "https://eyesave.netlify.app",
     ],
